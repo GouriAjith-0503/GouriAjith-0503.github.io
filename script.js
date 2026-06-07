@@ -1,289 +1,239 @@
-/* =========================================
-   PORTFOLIO JAVASCRIPT (optimized)
-   ========================================= */
+// ========== PORTFOLIO JS – OPTIMIZED ==========
+(function() {
+  'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-    initNavbar();
-    initTypewriter();
-    initParticles();
-    initScrollReveal();
-    initCountUp();
-    initSmoothScroll();
-    initMobileNav();
-});
+  // ----- helper: throttle (for scroll/resize) -----
+  const throttle = (fn, delay) => {
+    let last = 0;
+    return (...args) => {
+      const now = Date.now();
+      if (now - last >= delay) {
+        fn(...args);
+        last = now;
+      }
+    };
+  };
 
-/* =========================================
-   NAVBAR SCROLL (throttled)
-   ========================================= */
-function initNavbar() {
-    const navbar = document.getElementById('navbar');
-    let ticking = false;
+  // ----- NAVBAR SCROLL (add/remove .scrolled) -----
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    const handleScroll = () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', throttle(handleScroll, 20));
+    handleScroll(); // initial check
+  }
 
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-                ticking = false;
-            });
-            ticking = true;
-        }
+  // ----- MOBILE NAV TOGGLE -----
+  const toggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (toggle && navLinks) {
+    const closeMenu = () => {
+      toggle.classList.remove('active');
+      navLinks.classList.remove('open');
+    };
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
     });
-}
+    // close when clicking any nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+    // close on click outside
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target) && !navLinks.contains(e.target)) closeMenu();
+    });
+  }
 
-/* =========================================
-   TYPEWRITER (fixed)
-   ========================================= */
-function initTypewriter() {
-    const element = document.getElementById('typewriter');
-    if (!element) return;
+  // ----- TYPEWRITER (smooth, endless) -----
+  const typeEl = document.getElementById('typewriter');
+  if (typeEl) {
+    const phrases = ['FPGA-based systems.', 'IoT solutions.', 'embedded firmware.', 'real-time dashboards.'];
+    let idx = 0, charIdx = 0, isDeleting = false;
+    let timer;
 
-    const phrases = [
-        'FPGA-based systems.',
-        'IoT solutions.',
-        'embedded firmware.',
-        'web applications.',
-        'real-time dashboards.',
-        'sustainable tech.'
-    ];
+    const type = () => {
+      const current = phrases[idx];
+      if (isDeleting) {
+        typeEl.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        typeEl.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
+      }
 
-    let phraseIndex = 0, charIndex = 0, isDeleting = false;
-    let typingSpeed = 80;
-    let timeoutId;
+      if (!isDeleting && charIdx === current.length) {
+        isDeleting = true;
+        timer = setTimeout(type, 1800);
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        idx = (idx + 1) % phrases.length;
+        timer = setTimeout(type, 300);
+      } else {
+        const speed = isDeleting ? 40 : 80;
+        timer = setTimeout(type, speed);
+      }
+    };
+    timer = setTimeout(type, 300);
+  }
 
-    function type() {
-        const current = phrases[phraseIndex];
-        if (isDeleting) {
-            element.textContent = current.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 40;
-        } else {
-            element.textContent = current.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 80;
-        }
-
-        if (!isDeleting && charIndex === current.length) {
-            typingSpeed = 2200;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            typingSpeed = 400;
-        }
-
-        timeoutId = setTimeout(type, typingSpeed);
-    }
-
-    timeoutId = setTimeout(type, 1200);
-}
-
-/* =========================================
-   PARTICLES (dynamic count, performance)
-   ========================================= */
-function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+  // ----- PARTICLES (calm mint circles, only visible in hero) -----
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas && canvas.getContext) {
+    let ctx = canvas.getContext('2d');
+    let width = window.innerWidth, height = window.innerHeight;
     let particles = [];
     let animationId = null;
-    let isAnimating = false;
+    let isVisible = false;
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+    const resize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
 
-    function initParticlesArray() {
-        const area = canvas.width * canvas.height;
-        let numParticles = Math.min(60, Math.floor(area / 18000));
-        if (window.innerWidth < 768) numParticles = Math.min(30, numParticles);
-        particles = [];
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle(canvas.width, canvas.height));
-        }
-    }
+    const initParticles = () => {
+      const area = width * height;
+      let num = Math.min(45, Math.floor(area / 22000));
+      if (width < 768) num = Math.min(28, num);
+      particles = [];
+      for (let i = 0; i < num; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          rad: Math.random() * 2.5 + 1,
+          dx: (Math.random() - 0.5) * 0.35,
+          dy: (Math.random() - 0.5) * 0.35,
+          opacity: Math.random() * 0.3 + 0.1,
+          color: `rgba(139, 174, 159, ${Math.random() * 0.35 + 0.08})`
+        });
+      }
+    };
 
-    class Particle {
-        constructor(w, h) {
-            this.x = Math.random() * w;
-            this.y = Math.random() * h;
-            this.size = Math.random() * 2 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.4;
-            this.speedY = (Math.random() - 0.5) * 0.4;
-            this.opacity = Math.random() * 0.5 + 0.1;
-            this.hue = Math.random() > 0.5 ? 280 : 190;
-        }
-        update(w, h) {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.x < 0 || this.x > w) this.speedX *= -1;
-            if (this.y < 0 || this.y > h) this.speedY *= -1;
-        }
-        draw(ctx) {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${this.hue}, 80%, 70%, ${this.opacity})`;
-            ctx.fill();
-        }
-    }
+    const drawParticles = () => {
+      if (!isVisible) return;
+      ctx.clearRect(0, 0, width, height);
+      for (let p of particles) {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > width) p.dx *= -1;
+        if (p.y < 0 || p.y > height) p.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.rad, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      }
+      animationId = requestAnimationFrame(drawParticles);
+    };
 
-    function connectParticles(ctx, particles, w, h) {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.hypot(dx, dy);
-                if (dist < 150) {
-                    const opacity = (1 - dist / 150) * 0.12;
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-    }
+    const startParticles = () => {
+      if (animationId) cancelAnimationFrame(animationId);
+      resize();
+      initParticles();
+      isVisible = true;
+      drawParticles();
+    };
 
-    function animate() {
-        if (!isAnimating) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let p of particles) {
-            p.update(canvas.width, canvas.height);
-            p.draw(ctx);
-        }
-        connectParticles(ctx, particles, canvas.width, canvas.height);
-        animationId = requestAnimationFrame(animate);
-    }
+    const stopParticles = () => {
+      isVisible = false;
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+      ctx.clearRect(0, 0, width, height);
+    };
 
-    function start() {
-        if (animationId) cancelAnimationFrame(animationId);
-        resizeCanvas();
-        initParticlesArray();
-        isAnimating = true;
-        animate();
-    }
-
-    function stop() {
-        isAnimating = false;
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-        }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    window.addEventListener('resize', () => {
-        if (isAnimating) {
-            resizeCanvas();
-            initParticlesArray();
-        }
-    });
-
+    // only animate when hero is in viewport
     const hero = document.getElementById('hero');
-    const observer = new IntersectionObserver((entries) => {
+    if (hero) {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) start();
-            else stop();
+          if (entry.isIntersecting) startParticles();
+          else stopParticles();
         });
-    }, { threshold: 0.1 });
-    observer.observe(hero);
-}
+      }, { threshold: 0.1 });
+      observer.observe(hero);
+    }
+    window.addEventListener('resize', throttle(() => {
+      if (isVisible) {
+        resize();
+        initParticles();
+      }
+    }, 100));
+  }
 
-/* =========================================
-   SCROLL REVEAL
-   ========================================= */
-function initScrollReveal() {
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, idx) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => entry.target.classList.add('revealed'), idx * 100);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-    reveals.forEach(el => observer.observe(el));
-}
-
-/* =========================================
-   COUNT UP (single-run)
-   ========================================= */
-function initCountUp() {
-    const counters = document.querySelectorAll('.stat-number');
-    let animated = false;
-    const observer = new IntersectionObserver((entries) => {
-        if (animated) return;
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !animated) {
-                animated = true;
-                counters.forEach(counter => {
-                    const target = parseInt(counter.getAttribute('data-count'), 10);
-                    if (isNaN(target)) return;
-                    const duration = 1500;
-                    const startTime = performance.now();
-                    function update(now) {
-                        const elapsed = now - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const ease = 1 - Math.pow(1 - progress, 3);
-                        counter.textContent = Math.floor(ease * target);
-                        if (progress < 1) requestAnimationFrame(update);
-                        else counter.textContent = target;
-                    }
-                    requestAnimationFrame(update);
-                });
-            }
-        });
-    }, { threshold: 0.5 });
-    const stats = document.querySelector('.hero-stats');
-    if (stats) observer.observe(stats);
-}
-
-/* =========================================
-   SMOOTH SCROLL & MOBILE NAV
-   ========================================= */
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            const targetId = anchor.getAttribute('href');
-            if (targetId === '#') return;
-            const target = document.querySelector(targetId);
-            if (target) {
-                e.preventDefault();
-                document.getElementById('nav-links')?.classList.remove('open');
-                document.getElementById('nav-toggle')?.classList.remove('active');
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-}
-
-function initMobileNav() {
-    const toggle = document.getElementById('nav-toggle');
-    const navLinks = document.getElementById('nav-links');
-    if (!toggle || !navLinks) return;
-
-    toggle.addEventListener('click', () => {
-        toggle.classList.toggle('active');
-        navLinks.classList.toggle('open');
-    });
-
-    navLinks.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            toggle.classList.remove('active');
-            navLinks.classList.remove('open');
-        });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
-            toggle.classList.remove('active');
-            navLinks.classList.remove('open');
+  // ----- COUNT-UP (single run, using data-count) -----
+  const counters = document.querySelectorAll('.stat-number');
+  let counted = false;
+  if (counters.length) {
+    const statsContainer = document.querySelector('.hero-stats');
+    const countObserver = new IntersectionObserver((entries) => {
+      if (counted) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !counted) {
+          counted = true;
+          counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'), 10);
+            if (isNaN(target)) return;
+            let current = 0;
+            const step = Math.max(1, Math.ceil(target / 45));
+            const update = () => {
+              current += step;
+              if (current >= target) {
+                counter.textContent = target;
+                return;
+              }
+              counter.textContent = current;
+              requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+          });
         }
+      });
+    }, { threshold: 0.5 });
+    if (statsContainer) countObserver.observe(statsContainer);
+  }
+
+  // ----- SCROLL REVEAL (fade-in on scroll) -----
+  const revealElements = document.querySelectorAll('.reveal');
+  if (revealElements.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+  }
+
+  // ----- SMOOTH ANCHOR SCROLL (internal links) + close mobile menu -----
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const hash = anchor.getAttribute('href');
+      if (hash === '#') return;
+      const target = document.querySelector(hash);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // close mobile menu if open
+        if (navLinks && navLinks.classList.contains('open')) {
+          navLinks.classList.remove('open');
+          if (toggle) toggle.classList.remove('active');
+        }
+      }
     });
-}
+  });
+
+  // ----- fallback for resume download button (optional) -----
+  const resumeBtn = document.querySelector('#resumeDummy');
+  if (resumeBtn) {
+    resumeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      // you can replace with actual resume file if needed
+      alert('📄 Download Resume: Gouri Ajith – please contact directly or request via email.');
+    });
+  }
+})();
