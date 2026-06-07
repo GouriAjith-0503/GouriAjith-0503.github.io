@@ -1,561 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gouri Ajith - Resume</title>
-    <style>
-        /* ATS-FRIENDLY RESUME STYLING
-           - Uses standard fonts (serif for headings, sans-serif for body)
-           - No columns, tables, or complex layouts
-           - Simple, linear top-to-bottom structure
-           - Clean section headers with horizontal rules
-           - Print-optimized: Ctrl+P → Save as PDF
-        */
-        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gouri Ajith – Resume (VLSI & Embedded Engineer)</title>
+  <style>
+    /* ========== RESUME STYLES – CALM, ATS-FRIENDLY, PRINT-READY ========== */
+    /* 60-30-10 palette: warm cream 60%, clean white 30%, mint accent 10% */
+    :root {
+      --bg-dominant: #F8F6F0;
+      --bg-card: #FFFFFF;
+      --accent-mint: #8BAE9F;
+      --accent-softblue: #A7BDC7;
+      --text-primary: #2C3E3F;
+      --text-secondary: #55706E;
+      --text-muted: #7E928F;
+      --border-light: #E2DDD2;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.02);
+      --font-serif: 'EB Garamond', 'Georgia', serif;
+      --font-sans: 'Source Sans 3', 'Calibri', 'Arial', sans-serif;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Source Sans 3', 'Calibri', 'Arial', sans-serif;
-            font-size: 11pt;
-            line-height: 1.45;
-            color: #1a1a1a;
-            background: #f5f5f5;
-        }
+    body {
+      background: var(--bg-dominant);
+      font-family: var(--font-sans);
+      font-size: 11pt;
+      line-height: 1.5;
+      color: var(--text-primary);
+      padding: 32px 20px;
+    }
 
-        .resume {
-            max-width: 8.5in;
-            margin: 20px auto;
-            padding: 0.6in 0.7in;
-            background: #fff;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
+    /* print bar (no-print) */
+    .print-bar {
+      max-width: 8.5in;
+      margin: 0 auto 20px;
+      background: #2C3E3F;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-        /* ========== HEADER ========== */
-        .header {
-            text-align: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #1a1a1a;
-        }
+    .print-btn {
+      background: var(--accent-mint);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #1E2E2A;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.8rem;
+    }
 
-        h1 {
-            font-family: 'EB Garamond', 'Georgia', serif;
-            font-size: 26pt;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #1a1a1a;
-            margin-bottom: 6px;
-        }
+    .print-btn:hover {
+      background: #77A08E;
+      transform: translateY(-1px);
+    }
 
-        .contact-info {
-            font-size: 10pt;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+    /* resume card */
+    .resume {
+      max-width: 8.5in;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 0.6in 0.7in;
+      box-shadow: var(--shadow-sm);
+      border-radius: 24px;
+      border: 1px solid var(--border-light);
+    }
 
-        .contact-info span {
-            white-space: nowrap;
-        }
+    /* header */
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--accent-mint);
+    }
 
-        .contact-info .separator {
-            color: #999;
-        }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 28pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
 
-        .contact-info a {
-            color: #1a1a1a;
-            text-decoration: none;
-        }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 10pt;
+      color: var(--text-secondary);
+    }
 
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
+    .contact-info a {
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--accent-softblue);
+    }
 
-        /* ========== SECTIONS ========== */
-        .section {
-            margin-bottom: 14px;
-        }
+    .contact-info a:hover {
+      color: var(--accent-mint);
+    }
 
-        .section-title {
-            font-family: 'EB Garamond', 'Georgia', serif;
-            font-size: 12.5pt;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #1a1a1a;
-            border-bottom: 1px solid #555;
-            padding-bottom: 3px;
-            margin-bottom: 10px;
-        }
+    .separator {
+      color: var(--border-light);
+    }
 
-        /* ========== SUMMARY ========== */
-        .summary p {
-            font-size: 10.5pt;
-            color: #333;
-            line-height: 1.5;
-        }
+    /* sections */
+    .section {
+      margin-bottom: 20px;
+    }
 
-        /* ========== EDUCATION ========== */
-        .edu-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 2px;
-        }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 13pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--accent-mint);
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
 
-        .edu-school {
-            font-weight: 700;
-            font-size: 11pt;
-        }
+    /* summary */
+    .summary p {
+      font-size: 10.5pt;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
 
-        .edu-location {
-            font-size: 10pt;
-            color: #555;
-            text-align: right;
-        }
+    /* education */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
 
-        .edu-degree {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-style: italic;
-            font-size: 10.5pt;
-            color: #333;
-            margin-bottom: 4px;
-        }
+    .edu-school {
+      font-weight: 700;
+      font-size: 11pt;
+    }
 
-        .edu-details {
-            font-size: 10pt;
-            color: #333;
-            padding-left: 0;
-            list-style: none;
-        }
+    .edu-degree {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-style: italic;
+      font-size: 10.5pt;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
 
-        .edu-details li {
-            margin-bottom: 2px;
-        }
+    .edu-details {
+      list-style: none;
+      padding-left: 0;
+      font-size: 10pt;
+      color: var(--text-muted);
+    }
 
-        .edu-details li::before {
-            content: "• ";
-            color: #555;
-        }
+    .edu-details li {
+      margin-bottom: 2px;
+      position: relative;
+      padding-left: 14px;
+    }
 
-        /* ========== SKILLS ========== */
-        .skills-list {
-            list-style: none;
-            padding: 0;
-        }
+    .edu-details li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-mint);
+    }
 
-        .skills-list li {
-            margin-bottom: 4px;
-            font-size: 10.5pt;
-        }
+    /* skills list (inline) */
+    .skills-list {
+      list-style: none;
+    }
 
-        .skills-list li strong {
-            font-weight: 600;
-            color: #1a1a1a;
-        }
+    .skills-list li {
+      margin-bottom: 6px;
+      font-size: 10.5pt;
+    }
 
-        /* ========== EXPERIENCE ========== */
-        .exp-item {
-            margin-bottom: 14px;
-        }
+    .skills-list strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
 
-        .exp-item:last-child {
-            margin-bottom: 0;
-        }
+    /* experience & projects */
+    .exp-item, .proj-item, .lead-item {
+      margin-bottom: 18px;
+    }
 
-        .exp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1px;
-        }
+    .exp-header, .proj-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
 
-        .exp-title {
-            font-weight: 700;
-            font-size: 11pt;
-        }
+    .exp-title, .proj-title {
+      font-weight: 700;
+      font-size: 11pt;
+    }
 
-        .exp-date {
-            font-size: 10pt;
-            color: #555;
-            white-space: nowrap;
-        }
+    .exp-date, .proj-tech {
+      font-size: 9.5pt;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+    }
 
-        .exp-sub {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-style: italic;
-            font-size: 10.5pt;
-            color: #333;
-            margin-bottom: 5px;
-        }
+    .exp-sub, .proj-sub {
+      font-style: italic;
+      font-size: 10pt;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
 
-        .exp-bullets {
-            list-style: none;
-            padding-left: 0;
-        }
+    .exp-bullets, .proj-bullets {
+      list-style: none;
+      padding-left: 0;
+    }
 
-        .exp-bullets li {
-            font-size: 10.5pt;
-            margin-bottom: 3px;
-            padding-left: 14px;
-            position: relative;
-            line-height: 1.45;
-            color: #222;
-        }
+    .exp-bullets li, .proj-bullets li {
+      font-size: 10.5pt;
+      margin-bottom: 4px;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
 
-        .exp-bullets li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #555;
-        }
+    .exp-bullets li::before, .proj-bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-mint);
+    }
 
-        /* ========== PROJECTS ========== */
-        .proj-item {
-            margin-bottom: 14px;
-        }
+    /* print adjustments */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .resume {
+        box-shadow: none;
+        border: none;
+        padding: 0.4in;
+        border-radius: 0;
+      }
+      .print-bar {
+        display: none;
+      }
+      a {
+        text-decoration: none;
+        color: var(--text-primary);
+      }
+      .contact-info a {
+        border-bottom: none;
+      }
+      .section-title {
+        border-bottom: 1px solid #ccc;
+      }
+    }
 
-        .proj-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .proj-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1px;
-        }
-
-        .proj-title {
-            font-weight: 700;
-            font-size: 11pt;
-        }
-
-        .proj-tech {
-            font-size: 9.5pt;
-            color: #555;
-            white-space: nowrap;
-        }
-
-        .proj-sub {
-            font-style: italic;
-            font-size: 10pt;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .proj-bullets {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .proj-bullets li {
-            font-size: 10.5pt;
-            margin-bottom: 3px;
-            padding-left: 14px;
-            position: relative;
-            line-height: 1.45;
-            color: #222;
-        }
-
-        .proj-bullets li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #555;
-        }
-
-        /* ========== LEADERSHIP ========== */
-        .lead-item {
-            margin-bottom: 12px;
-        }
-
-        .lead-item:last-child {
-            margin-bottom: 0;
-        }
-
-        /* ========== PRINT ========== */
-        @media print {
-            body {
-                background: #fff;
-                font-size: 10.5pt;
-            }
-
-            .resume {
-                box-shadow: none;
-                margin: 0;
-                padding: 0.5in 0.6in;
-                max-width: none;
-            }
-
-            a {
-                color: #1a1a1a !important;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-        }
-
-        /* ========== PRINT BUTTON ========== */
-        .print-bar {
-            max-width: 8.5in;
-            margin: 0 auto 10px;
-            padding: 12px 20px;
-            background: #1a1a1a;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #fff;
-            font-family: 'Source Sans 3', sans-serif;
-        }
-
-        .print-bar p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .print-btn {
-            padding: 8px 24px;
-            background: #00d4ff;
-            color: #1a1a1a;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            font-family: 'Source Sans 3', sans-serif;
-            transition: background 0.2s;
-        }
-
-        .print-btn:hover {
-            background: #33ddff;
-        }
-    </style>
+    /* responsiveness */
+    @media (max-width: 600px) {
+      .resume {
+        padding: 32px 24px;
+      }
+      .contact-info {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .separator {
+        display: none;
+      }
+      .exp-header, .proj-header {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="print-bar">
+    <span>💡 <strong>Ctrl + P</strong> → Save as PDF (ATS-friendly, clean layout)</span>
+    <button class="print-btn" onclick="window.print()">📄 Save as PDF</button>
+  </div>
 
-    <!-- Print instruction bar -->
-    <div class="print-bar no-print">
-        <p>💡 Press <strong>Ctrl + P</strong> → Save as PDF for an ATS-friendly resume file</p>
-        <button class="print-btn" onclick="window.print()">Save as PDF</button>
+  <div class="resume">
+    <!-- HEADER -->
+    <header class="header">
+      <h1>GOURI AJITH</h1>
+      <div class="contact-info">
+        <span>📞 +91 79078 64112</span>
+        <span class="separator">|</span>
+        <span>✉️ <a href="mailto:ajithgouriajith@gmail.com">ajithgouriajith@gmail.com</a></span>
+        <span class="separator">|</span>
+        <span>🔗 <a href="https://www.linkedin.com/in/gouri-ajith-64854a331" target="_blank">linkedin.com/in/gouri-ajith</a></span>
+        <span class="separator">|</span>
+        <span>💻 <a href="https://github.com/GouriAjith-0503" target="_blank">github.com/GouriAjith-0503</a></span>
+      </div>
+    </header>
+
+    <!-- PROFESSIONAL SUMMARY -->
+    <div class="section summary">
+      <div class="section-title">Professional Summary</div>
+      <p>Motivated Electronics Engineering student specializing in VLSI Design & Technology with a strong foundation in FPGA design, embedded systems, and IoT development. Experienced in designing digital logic circuits using Verilog, building hardware-accelerated environmental monitors, and deploying full-stack cloud solutions. Proven ability to bridge hardware and software through internships at NIELIT, Corizo, and AD Infocom Systems. Multilingual: English, Malayalam, Mandarin.</p>
     </div>
 
-    <div class="resume">
-
-        <!-- HEADER -->
-        <header class="header">
-            <h1>Gouri Ajith</h1>
-            <div class="contact-info">
-                <span>📞 7907864112</span>
-                <span class="separator">|</span>
-                <span>✉ <a href="mailto:ajithgouriajith@gmail.com">ajithgouriajith@gmail.com</a></span>
-                <span class="separator">|</span>
-                <span>🔗 <a href="https://www.linkedin.com/in/gouri-ajith-64854a331"
-                        target="_blank">linkedin.com/in/gouri-ajith-64854a331</a></span>
-                <span class="separator">|</span>
-                <span>💻 <a href="https://github.com/GouriAjith-0503"
-                        target="_blank">github.com/GouriAjith-0503</a></span>
-            </div>
-        </header>
-
-        <!-- PROFESSIONAL SUMMARY -->
-        <div class="section summary">
-            <div class="section-title">Professional Summary</div>
-            <p>
-                Motivated Electronics Engineering student specializing in VLSI Design & Technology with a strong
-                foundation in FPGA design, embedded systems, and IoT development. Experienced in designing and
-                simulating digital logic circuits using Verilog, building hardware-accelerated environmental monitoring
-                systems, and deploying full-stack cloud solutions. Proven ability to bridge hardware and software
-                through internships at NIELIT and Corizo, with multilingual proficiency in English, Malayalam, and
-                Mandarin.
-            </p>
-        </div>
-
-        <!-- EDUCATION -->
-        <div class="section">
-            <div class="section-title">Education</div>
-            <div class="edu-row">
-                <span class="edu-school">Saintgits College of Engineering</span>
-                <span class="edu-location">Kottayam, Kerala</span>
-            </div>
-            <div class="edu-degree">
-                <span>B.Tech in Electronics Engineering (VLSI Design & Technology)</span>
-                <span>2024 – 2028 (Expected May 2028)</span>
-            </div>
-            <ul class="edu-details">
-                <li><strong>CGPA:</strong> 8.8 / 10</li>
-                <li><strong>Relevant Coursework:</strong> Digital Design, Network Analysis, Signals and Systems,
-                    Electronic Devices, Semiconductor Devices, Linear Integrated Circuits</li>
-            </ul>
-        </div>
-
-        <!-- TECHNICAL SKILLS -->
-        <div class="section">
-            <div class="section-title">Technical Skills</div>
-            <ul class="skills-list">
-                <li><strong>Hardware & FPGA:</strong> Verilog HDL, Xilinx Vivado, FPGA Design (Nexys 4, Basys 3),
-                    XADC/ADC, UART Protocol, Digital Logic Design, Logic Synthesis, Timing Analysis</li>
-                <li><strong>Embedded & IoT:</strong> ESP32, PlatformIO, Sensor Integration (DHT11, MQ-135),
-                    WiFi/HTTP, Arduino</li>
-                <li><strong>Programming:</strong> Python (NumPy, Pandas, Scikit-learn), HTML/CSS</li>
-                <li><strong>Tools & Platforms:</strong> Git/GitHub, Xilinx Vivado, Keil µVision, Microsoft Excel, Google
-                    Colab, Canva, Cloudflare Workers, VS Code</li>
-                <li><strong>Languages:</strong> English (Fluent), Malayalam (Native), Mandarin Chinese (TOCFL Band 2)
-                </li>
-            </ul>
-        </div>
-
-        <!-- WORK EXPERIENCE -->
-        <div class="section">
-            <div class="section-title">Work Experience</div>
-
-            <div class="exp-item">
-                <div class="exp-header">
-                    <span class="exp-title">Summer Intern — FPGA & Digital Logic Design</span>
-                    <span class="exp-date">May 2025 – June 2025</span>
-                </div>
-                <div class="exp-sub">
-                    <span>National Institute of Electronics & Information Technology (NIELIT)</span>
-                    <span>Kozhikode, Kerala</span>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Designed and simulated <strong>12+ digital logic circuits</strong> using Verilog for
-                        implementation on FPGA boards (Basys 3 and Xilinx), ensuring functional correctness through
-                        comprehensive testbenches.</li>
-                    <li>Prototyped digital systems with focus on <strong>logic synthesis, timing analysis, and hardware
-                            debugging</strong>, reducing design iteration time through systematic verification.</li>
-                    <li>Integrated multiple Verilog modules into a single working prototype, <strong>documenting the
-                            complete design process</strong> with test results and block diagrams for team reference.
-                    </li>
-                </ul>
-            </div>
-
-            <div class="exp-item">
-                <div class="exp-header">
-                    <span class="exp-title">Artificial Intelligence Intern</span>
-                    <span class="exp-date">January 2025 – February 2025</span>
-                </div>
-                <div class="exp-sub">
-                    <span>Corizo</span>
-                    <span>Online</span>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Completed an intensive <strong>4-week training program</strong> in Artificial Intelligence,
-                        covering Python programming, data structures, and foundational machine learning concepts.</li>
-                    <li>Built <strong>practical ML projects</strong> applying supervised learning algorithms using
-                        NumPy, Pandas, and Scikit-learn, achieving model accuracy benchmarks on provided datasets.</li>
-                    <li>Gained hands-on experience with <strong>data preprocessing, feature engineering, and model
-                            evaluation</strong> methodologies.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- PROJECTS -->
-        <div class="section">
-            <div class="section-title">Projects</div>
-
-            <div class="proj-item">
-                <div class="proj-header">
-                    <span class="proj-title">EcoMatrix — Hardware-Accelerated Environmental Monitor</span>
-                    <span class="proj-tech">FPGA · ESP32 · Verilog · Cloudflare · HTML/CSS</span>
-                </div>
-                <div class="proj-sub">Personal Project | VISAI National Competition Entry</div>
-                <ul class="proj-bullets">
-                    <li>Built an environmental monitoring system using a <strong>Nexys 4 FPGA</strong> and
-                        <strong>ESP32</strong>, achieving <strong>sub-millisecond response times</strong> for safety
-                        alerts via parallel Verilog logic and threshold classification.
-                    </li>
-                    <li>Integrated a <strong>"Region-Aware" feature</strong> allowing the system to adapt environmental
-                        thresholds for global climate zones (Tropical/Arid) via physical hardware toggles on the FPGA
-                        board.</li>
-                    <li>Deployed a <strong>full-stack cloud dashboard</strong> using Cloudflare Workers (backend API)
-                        and HTML/CSS (frontend) to visualize and track UN Sustainable Development Goal metrics for Clean
-                        Water & Air quality.</li>
-                    <li>Implemented <strong>XADC analog-to-digital conversion</strong> and UART serial communication
-                        between FPGA and ESP32 for real-time sensor data relay to the cloud.</li>
-                </ul>
-            </div>
-
-            <div class="proj-item">
-                <div class="proj-header">
-                    <span class="proj-title">Frequency Divider Circuit Design</span>
-                    <span class="proj-tech">IC 7474 · PCB · Digital Logic</span>
-                </div>
-                <div class="proj-sub">Digital System Design Course | September 2025</div>
-                <ul class="proj-bullets">
-                    <li>Designed and implemented a <strong>frequency divider circuit on a PCB board</strong> using IC
-                        7474 (D flip-flop) to reduce input clock frequency by a factor of 4.</li>
-                    <li>Analyzed circuit <strong>timing diagrams</strong> and verified output waveforms against
-                        theoretical calculations using LED indicators.</li>
-                    <li>Demonstrated understanding of <strong>sequential logic, flip-flop behavior, and counter
-                            circuits</strong> through hands-on hardware prototyping.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- LEADERSHIP & ACTIVITIES -->
-        <div class="section">
-            <div class="section-title">Leadership & Activities</div>
-
-            <div class="lead-item">
-                <div class="exp-header">
-                    <span class="exp-title">Student Representative — Mathematics Club</span>
-                    <span class="exp-date">January 2026 – Present</span>
-                </div>
-                <div class="exp-sub">
-                    <span>Saintgits College of Engineering</span>
-                    <span>Kottayam, Kerala</span>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Serve as primary <strong>liaison between mathematics faculty and 100+ students</strong>,
-                        communicating club activities and academic opportunities effectively.</li>
-                    <li>Coordinate and promote club events including <strong>guest lectures, problem-solving workshops,
-                            and the annual college math festival</strong>, boosting student engagement.</li>
-                </ul>
-            </div>
-
-            <div class="lead-item">
-                <div class="exp-header">
-                    <span class="exp-title">VISAI National Competition Participant</span>
-                    <span class="exp-date">2025 – 2026</span>
-                </div>
-                <div class="exp-sub">
-                    <span>National-Level Hardware-Software Innovation Competition</span>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Presented an <strong>end-to-end FPGA + IoT environmental monitoring solution</strong> at a
-                        national-level competition, demonstrating hardware-software integration capabilities.</li>
-                </ul>
-            </div>
-        </div>
-
+    <!-- EDUCATION -->
+    <div class="section">
+      <div class="section-title">Education</div>
+      <div class="edu-row">
+        <span class="edu-school">Saintgits College of Engineering, Kottayam, Kerala</span>
+        <span class="edu-degree">B.Tech Electronics Engineering (VLSI Design & Technology) – 2024–2028 (Expected May 2028)</span>
+      </div>
+      <ul class="edu-details">
+        <li><strong>CGPA:</strong> 8.8 / 10 (Sem 1: 8.55, Sem 2: 9.00, Sem 3: 9.11)</li>
+        <li><strong>Relevant Coursework:</strong> Digital Design, Microcontrollers, Semiconductor Devices, Linear ICs, Network Analysis, Signals & Systems</li>
+      </ul>
     </div>
 
-    <script>
-        // Keyboard shortcut hint
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'p') {
-                // Let browser handle print
-            }
-        });
-    </script>
+    <!-- TECHNICAL SKILLS -->
+    <div class="section">
+      <div class="section-title">Technical Skills</div>
+      <ul class="skills-list">
+        <li><strong>Hardware & FPGA:</strong> Verilog HDL, Xilinx Vivado, FPGA (Nexys 4 / Basys 3), XADC, UART, Digital Logic, Timing Analysis</li>
+        <li><strong>Embedded & IoT:</strong> ESP32, PlatformIO, Sensor Integration (DHT11, MQ-135), WiFi/HTTP, Arduino, Keil µVision</li>
+        <li><strong>Programming:</strong> Python (NumPy, Pandas, Scikit-learn), HTML/CSS, JavaScript</li>
+        <li><strong>Tools & Platforms:</strong> Git/GitHub, Cloudflare Workers, Google Colab, VS Code, Excel, Canva</li>
+        <li><strong>Languages:</strong> English (Fluent), Malayalam (Native), Mandarin Chinese (TOCFL Band 2), Hindi (Conversational)</li>
+      </ul>
+    </div>
+
+    <!-- WORK EXPERIENCE -->
+    <div class="section">
+      <div class="section-title">Work Experience</div>
+      
+      <div class="exp-item">
+        <div class="exp-header"><span class="exp-title">Summer Intern – FPGA & Digital Logic Design</span><span class="exp-date">May 2025 – Jun 2025</span></div>
+        <div class="exp-sub">National Institute of Electronics & Information Technology (NIELIT), Kozhikode, Kerala</div>
+        <ul class="exp-bullets"><li>Designed 12+ digital logic circuits using Verilog for FPGA boards (Basys 3, Xilinx) with comprehensive testbenches.</li><li>Prototyped systems focusing on logic synthesis, timing analysis, and hardware debugging, reducing iteration time.</li><li>Integrated multiple Verilog modules into working prototypes, documenting design process and results.</li></ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header"><span class="exp-title">Artificial Intelligence Intern</span><span class="exp-date">Jan 2025 – Feb 2025</span></div>
+        <div class="exp-sub">Corizo (Remote)</div>
+        <ul class="exp-bullets"><li>Completed 4-week training: Python, data structures, supervised ML using NumPy, Pandas, Scikit-learn.</li><li>Built practical ML projects achieving accuracy benchmarks; gained experience in data preprocessing and model evaluation.</li></ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header"><span class="exp-title">VLSI Design Intern</span><span class="exp-date">Mar 2026 – Apr 2026</span></div>
+        <div class="exp-sub">AD Infocom Systems (Remote)</div>
+        <ul class="exp-bullets"><li>Developed Radix-4 Booth 16-bit sequential multiplier in Verilog, optimizing DSP arithmetic operations.</li><li>Refactored legacy codebase, fixed syntax and boundary issues, implemented 2's complement signed number support and 'done' control flag.</li><li>Verified design with comprehensive testbench for edge-case vectors (255×255, 128×128).</li></ul>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section">
+      <div class="section-title">Projects</div>
+      
+      <div class="proj-item">
+        <div class="proj-header"><span class="proj-title">EcoMatrix – Hardware-Accelerated Environmental Monitor</span><span class="proj-tech">FPGA · Verilog · ESP32 · Cloudflare</span></div>
+        <div class="proj-sub">Personal Project | VISAI National Competition Entry (Jan 2026 – Feb 2026)</div>
+        <ul class="proj-bullets"><li>Built environmental monitor using Nexys 4 FPGA + ESP32; achieved sub-millisecond safety alerts via parallel Verilog logic.</li><li>Integrated “Region-Aware” hardware toggle to adapt thresholds for tropical/arid climate zones.</li><li>Deployed full-stack dashboard with Cloudflare Workers (API) + HTML/CSS to track UN SDG metrics (Clean Water & Air).</li><li>Implemented XADC analog conversion and UART serial communication between FPGA and ESP32.</li></ul>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header"><span class="proj-title">Frequency Divider Circuit Design</span><span class="proj-tech">IC 7474 · PCB · Digital Logic</span></div>
+        <div class="proj-sub">Digital System Design Course (Sep 2025)</div>
+        <ul class="proj-bullets"><li>Designed PCB-based frequency divider using IC 7474 D flip-flops to divide input clock by factor of 4.</li><li>Analyzed timing diagrams and verified output waveforms with LED indicators.</li><li>Demonstrated sequential logic, flip-flop behavior, and counter circuits through hardware prototyping.</li></ul>
+      </div>
+    </div>
+
+    <!-- LEADERSHIP & ACTIVITIES -->
+    <div class="section">
+      <div class="section-title">Leadership & Activities</div>
+      <div class="exp-item">
+        <div class="exp-header"><span class="exp-title">Student Representative – Mathematics Club</span><span class="exp-date">Jan 2026 – Present</span></div>
+        <div class="exp-sub">Saintgits College of Engineering, Kottayam</div>
+        <ul class="exp-bullets"><li>Primary liaison between faculty and 100+ students; coordinate guest lectures, workshops, and annual math festival.</li><li>Boosted student engagement through event planning and communication.</li></ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header"><span class="exp-title">VISAI National Competition Participant</span><span class="exp-date">2025–2026</span></div>
+        <div class="exp-sub">National-Level Hardware-Software Innovation Competition</div>
+        <ul class="exp-bullets"><li>Presented FPGA + IoT environmental monitoring solution, demonstrating end-to-end hardware-software integration.</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // optional: keyboard hint for print
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'p') {
+        // let browser handle print normally
+      }
+    });
+  </script>
 </body>
-
 </html>
