@@ -1,529 +1,532 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Gouri Ajith — Electronics & VLSI Engineering Student. Portfolio showcasing FPGA, ESP32, IoT, and embedded systems projects.">
-    <meta name="keywords" content="Gouri Ajith, FPGA, Verilog, ESP32, IoT, embedded systems, portfolio, developer">
-    <meta name="author" content="Gouri Ajith">
-    <title>Gouri Ajith | Electronics & VLSI Engineering Student</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gouri Ajith — Electronics & VLSI Engineering Student. Portfolio showcasing FPGA, ESP32, IoT, and embedded systems projects.">
+  <meta name="keywords" content="Gouri Ajith, FPGA, Verilog, ESP32, IoT, embedded systems, portfolio, VLSI">
+  <meta name="author" content="Gouri Ajith">
+  <title>Gouri Ajith | Electronics & VLSI Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ========== 60-30-10 PALETTE: Soft Blues, Sage, Mint, Warm Neutrals ========== */
+    :root {
+      --bg-dominant: #F8F6F0;        /* 60% - warm cream/beige background */
+      --bg-secondary: #FFFFFF;       /* 30% - cards, panels, clean white */
+      --bg-soft-sage: #EFF3EB;       /* subtle sage for hover/accents */
+      --accent-mint: #8BAE9F;        /* 10% - buttons, highlights */
+      --accent-softblue: #A7BDC7;    /* soft blue for secondary accents */
+      --text-primary: #2C3E3F;       /* soft charcoal / dark navy for readability */
+      --text-secondary: #55706E;     /* muted calm grey-green */
+      --text-muted: #7E928F;
+      --border-light: #E2DDD2;
+      --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 12px 28px -8px rgba(0, 0, 0, 0.04);
+      --gradient-calm: linear-gradient(120deg, #8BAE9F, #A9C0B5);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 18px;
+      --transition: 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dominant);
+      color: var(--text-primary);
+      line-height: 1.55;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: rgba(139, 174, 159, 0.25);
+      color: #1E2E2F;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ----- WHITESPACE & SECTION FLOW ----- */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-mint);
+      letter-spacing: 0.3px;
+      background: rgba(139, 174, 159, 0.12);
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .gradient-text {
+      background: var(--gradient-calm);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .section-line {
+      width: 70px;
+      height: 3px;
+      background: var(--gradient-calm);
+      margin: 18px auto 0;
+      border-radius: 4px;
+      opacity: 0.6;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 18px auto 0;
+      font-size: 1rem;
+    }
+
+    /* ----- NAVBAR (calm, soft) ----- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 22px 0;
+      transition: all 0.25s;
+      background: transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(248, 246, 240, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+    }
+
+    .nav-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
+    }
+    .logo-bracket { color: var(--accent-mint); }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-link {
+      padding: 8px 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-radius: 40px;
+      transition: var(--transition);
+    }
+    .nav-link:hover {
+      color: var(--accent-mint);
+      background: rgba(139, 174, 159, 0.1);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ----- HERO (airy, calm) ----- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: linear-gradient(145deg, #FEFCF7 0%, #F4F2EA 100%);
+      padding: 140px 24px 80px;
+    }
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      text-align: center;
+      animation: fadeUp 0.9s ease;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #E9EFE6;
+      padding: 6px 18px;
+      border-radius: 50px;
+      color: #527A6A;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+    .badge-dot { width: 8px; height: 8px; background: var(--accent-mint); border-radius: 50%; display: inline-block; }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      color: #2C3E3F;
+    }
+    .hero-subtitle-wrapper {
+      font-size: 1.4rem;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .typewriter { color: var(--accent-mint); font-weight: 600; }
+    .cursor { color: var(--accent-mint); animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-description {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 70px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 32px;
+      border-radius: 44px;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent-mint);
+      color: #1E2E2A;
+      box-shadow: 0 4px 12px rgba(139, 174, 159, 0.2);
+    }
+    .btn-primary:hover { background: #77A08E; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,174,159,0.25); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--text-primary);
+    }
+    .btn-outline:hover { border-color: var(--accent-mint); background: rgba(139,174,159,0.05); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--text-primary); }
+    .stat-label { font-size: 0.7rem; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; }
+    .stat-divider { width: 1px; height: 36px; background: var(--border-light); }
+
+    /* ----- cards & common components ----- */
+    .about-grid, .contact-grid, .skills-grid {
+      display: grid;
+      gap: 48px;
+    }
+    .about-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+    .about-text p { color: var(--text-secondary); margin-bottom: 20px; }
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .highlight-item {
+      display: flex;
+      gap: 14px;
+      background: var(--bg-secondary);
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--border-light);
+      transition: 0.2s;
+    }
+    .highlight-icon { font-size: 1.8rem; }
+    .code-window {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .code-header {
+      background: #F2EFE8;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .code-body {
+      background: #FEFCF8;
+      padding: 28px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #3A4F4C;
+      overflow-x: auto;
+    }
+    .code-keyword { color: #8BAE9F; font-weight: 500; }
+    .code-string { color: #A4B7A3; }
+
+    /* Projects & Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .project-card {
+      background: var(--bg-secondary);
+      border-radius: 28px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+    .project-card:hover { transform: translateY(-6px); border-color: #cbd9cd; box-shadow: var(--shadow-md); }
+    .project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr 1fr; }
+    .project-image-placeholder {
+      background: #E7ECE3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+      min-height: 220px;
+    }
+    .project-icon { width: 80px; color: var(--accent-mint); opacity: 0.7; }
+    .project-content { padding: 28px; flex: 1; }
+    .project-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tag {
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-weight: 500;
+    }
+    .tag-hardware { background: #EAF0EC; color: #5D7A6C; }
+    .tag-iot { background: #E4EBF0; color: #5E7C89; }
+    .tag-web { background: #E7F0EA; color: #628D7A; }
+    .project-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; }
+    .project-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 18px; line-height: 1.5; }
+    .project-features { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* Timeline Experience */
+    .timeline { max-width: 800px; margin: 0 auto; position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 10px; top: 8px; bottom: 20px; width: 2px; background: #C9D6CE; }
+    .timeline-item { position: relative; margin-bottom: 48px; }
+    .timeline-marker {
+      position: absolute; left: -24px; top: 8px;
+      width: 12px; height: 12px; background: var(--accent-mint); border-radius: 50%;
+      border: 3px solid var(--bg-dominant);
+      box-shadow: 0 0 0 3px rgba(139,174,159,0.2);
+    }
+    .timeline-content {
+      background: var(--bg-secondary);
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid var(--border-light);
+      transition: 0.2s;
+    }
+    .timeline-header { display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 6px; }
+    .timeline-header h3 { font-weight: 700; font-size: 1.1rem; }
+    .timeline-company { color: var(--accent-mint); font-size: 0.85rem; }
+    .timeline-date { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 16px; display: inline-block; }
+    .timeline-details { list-style: none; }
+    .timeline-details li { padding-left: 22px; margin-bottom: 10px; position: relative; color: var(--text-secondary); font-size: 0.9rem; }
+    .timeline-details li::before { content: "▹"; position: absolute; left: 0; color: var(--accent-mint); }
+
+    /* Skills */
+    .skills-grid { grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .skill-category {
+      background: var(--bg-secondary);
+      border-radius: 28px;
+      padding: 28px;
+      border: 1px solid var(--border-light);
+    }
+    .skill-category-header { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; }
+    .skill-items { display: flex; flex-direction: column; gap: 12px; }
+    .skill-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); }
+
+    /* Contact */
+    .contact-grid { grid-template-columns: repeat(3, 1fr); max-width: 860px; margin: 0 auto; gap: 28px; }
+    .contact-card {
+      background: var(--bg-secondary);
+      border-radius: 32px;
+      padding: 36px 24px;
+      text-align: center;
+      border: 1px solid var(--border-light);
+      transition: 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .contact-card:hover { transform: translateY(-5px); border-color: var(--accent-mint); }
+    .contact-icon { margin-bottom: 20px; color: var(--accent-mint); }
+
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border-light);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* responsive */
+    @media (max-width: 1000px) {
+      .skills-grid { grid-template-columns: repeat(2,1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 780px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+        background: var(--bg-secondary); flex-direction: column; padding: 100px 32px;
+        transition: 0.3s; border-left: 1px solid var(--border-light);
+      }
+      .nav-links.open { right: 0; }
+      .nav-toggle { display: block; }
+      .hero-stats { gap: 24px; }
+      .hero-cta { flex-direction: column; align-items: center; }
+    }
+    @media (max-width: 560px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .about-highlights { grid-template-columns: 1fr; }
+    }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+  </style>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#hero" class="nav-logo">
-                <span class="logo-bracket">&lt;</span>GA<span class="logo-bracket">/&gt;</span>
-            </a>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-        </div>
-    </nav>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container"><a href="#hero" class="nav-logo"><span class="logo-bracket">&lt;</span>GA<span class="logo-bracket">/&gt;</span></a>
+      <ul class="nav-links" id="nav-links"><li><a href="#about" class="nav-link">About</a></li><li><a href="#experience" class="nav-link">Experience</a></li><li><a href="#projects" class="nav-link">Projects</a></li><li><a href="#skills" class="nav-link">Skills</a></li><li><a href="#contact" class="nav-link">Contact</a></li></ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span class="hamburger" style="display:block; width:24px; height:2px; background:#2C3E3F; position:relative;"></span></button>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <canvas id="particles-canvas"></canvas>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                Available for opportunities
-            </div>
-            <h1 class="hero-title">
-                Hi, I'm <span class="gradient-text">Gouri Ajith</span>
-            </h1>
-            <div class="hero-subtitle-wrapper">
-                <span class="hero-subtitle-prefix">I build </span>
-                <span class="typewriter" id="typewriter"></span>
-                <span class="cursor">|</span>
-            </div>
-            <p class="hero-description">
-                B.Tech Electronics Engineering (VLSI Design & Technology) student (2024–2028) at Saintgits College of
-                Engineering.
-                Passionate about bridging hardware and software — from FPGA designs and embedded IoT systems to
-                cloud-connected dashboards.
-            </p>
-            <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">
-                    <span>View My Work</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M7 17l9.2-9.2M17 17V7.8H7.8" />
-                    </svg>
-                </a>
-                <a href="resume.docx" download class="btn btn-outline">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Download Resume
-                </a>
-                <a href="#contact" class="btn btn-outline">Get In Touch</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number" data-count="2">0</span><span class="stat-plus">+</span>
-                    <span class="stat-label">Projects</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-number" data-count="8">0</span><span class="stat-plus">+</span>
-                    <span class="stat-label">Technologies</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-number" data-count="2">0</span><span class="stat-plus">+</span>
-                    <span class="stat-label">Internships</span>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="mouse-wheel"></div>
-            </div>
-            <span>Scroll to explore</span>
-        </div>
-    </section>
+  <section class="hero" id="hero"><canvas id="particles-canvas"></canvas>
+    <div class="hero-content"><div class="hero-badge"><span class="badge-dot"></span> Available for opportunities</div>
+      <h1 class="hero-title">Hi, I'm <span class="gradient-text">Gouri Ajith</span></h1>
+      <div class="hero-subtitle-wrapper"><span>I build </span><span class="typewriter" id="typewriter"></span><span class="cursor">|</span></div>
+      <p class="hero-description">B.Tech Electronics Engineering (VLSI Design & Technology) (2024–2028) at Saintgits College of Engineering. Bridging hardware and software — FPGA, embedded IoT, cloud dashboards.</p>
+      <div class="hero-cta"><a href="#projects" class="btn btn-primary">View My Work →</a><a href="#" class="btn btn-outline" id="resumeDummy">📄 Download Resume</a><a href="#contact" class="btn btn-outline">Get In Touch</a></div>
+      <div class="hero-stats"><div class="stat"><span class="stat-number" data-count="3">0</span><span class="stat-label">Projects</span></div><div class="stat-divider"></div><div class="stat"><span class="stat-number" data-count="10">0</span><span class="stat-label">Technologies</span></div><div class="stat-divider"></div><div class="stat"><span class="stat-number" data-count="3">0</span><span class="stat-label">Internships</span></div></div>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">&lt;about&gt;</span>
-                <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <p>
-                        I'm a <strong>B.Tech Electronics Engineering (VLSI Design & Technology)</strong> student
-                        (2024–2028 batch) at
-                        <strong>Saintgits College of Engineering</strong>, Kottayam, Kerala — with a CGPA of
-                        <strong>8.8/10</strong>.
-                    </p>
-                    <p>
-                        My journey spans across <strong>FPGA design with Verilog</strong>, <strong>microcontroller
-                            programming with ESP32</strong>, and <strong>cloud-connected IoT systems</strong>. I enjoy
-                        working on projects that make a real-world impact, such as my EcoMatrix environmental monitor
-                        that tracks SDG metrics using FPGA and IoT.
-                    </p>
-                    <p>
-                        I've interned at <strong>NIELIT</strong> (FPGA/Verilog) and <strong>Corizo</strong> (AI/ML),
-                        participated in the <strong>VISAI</strong> national competition, and serve as <strong>Student
-                            Representative</strong> of the Maths Club at my college. I also speak <strong>English,
-                            Malayalam, and Mandarin</strong>.
-                    </p>
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <div class="highlight-icon">🎓</div>
-                            <div>
-                                <strong>Education</strong>
-                                <span>B.Tech ECE (VLSI) · 2024–2028 · 8.8 CGPA</span>
-                            </div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-icon">⚡</div>
-                            <div>
-                                <strong>Hardware Design</strong>
-                                <span>FPGA, Verilog, Circuit Design</span>
-                            </div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-icon">�</div>
-                            <div>
-                                <strong>IoT & Embedded</strong>
-                                <span>ESP32, Sensors, UART</span>
-                            </div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-icon">�</div>
-                            <div>
-                                <strong>Languages</strong>
-                                <span>English, Malayalam, Mandarin</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual reveal">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <div class="code-dots">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                            </div>
-                            <span class="code-title">gouri_ajith.py</span>
-                        </div>
-                        <pre
-                            class="code-body"><code><span class="code-keyword">class</span> <span class="code-class">GouriAjith</span>:
-    <span class="code-keyword">def</span> <span class="code-func">__init__</span>(self):
-        self.<span class="code-var">name</span> = <span class="code-string">"Gouri Ajith"</span>
-        self.<span class="code-var">role</span> = <span class="code-string">"Embedded &amp; IoT Dev"</span>
-        self.<span class="code-var">languages</span> = [
-            <span class="code-string">"Verilog"</span>,
-            <span class="code-string">"Python"</span>, <span class="code-string">"JavaScript"</span>
-        ]
-        self.<span class="code-var">interests</span> = [
-            <span class="code-string">"FPGA Design"</span>,
-            <span class="code-string">"IoT Systems"</span>,
-            <span class="code-string">"Sustainability"</span>
-        ]
+  <section class="section about" id="about"><div class="container"><div class="section-header"><span class="section-tag">&lt;about&gt;</span><h2 class="section-title">About <span class="gradient-text">Me</span></h2><div class="section-line"></div></div>
+    <div class="about-grid"><div class="about-text reveal"><p>B.Tech Electronics Engineering (VLSI Design & Technology) student (2024–2028) at <strong>Saintgits College of Engineering</strong>, Kottayam — CGPA 8.8/10. Passionate about bridging hardware and software: FPGA design, ESP32, and cloud-integrated IoT.</p>
+    <p>Interned at <strong>NIELIT</strong> (FPGA/Verilog), <strong>Corizo</strong> (AI/ML), and <strong>AD Infocom Systems</strong> (VLSI design). Built EcoMatrix — hardware-accelerated environmental monitor for VISAI national competition, and currently Maths Club Student Representative.</p>
+    <div class="about-highlights"><div class="highlight-item"><div class="highlight-icon">🎓</div><div><strong>Education</strong><span>B.Tech ECE(VLSI) · 2024–2028 · 8.8 CGPA</span></div></div><div class="highlight-item"><div class="highlight-icon">⚡</div><div><strong>Hardware</strong><span>Verilog, FPGA, Digital Logic</span></div></div><div class="highlight-item"><div class="highlight-icon">🌱</div><div><strong>Embedded & IoT</strong><span>ESP32, Sensors, UART</span></div></div><div class="highlight-item"><div class="highlight-icon">🗣️</div><div><strong>Languages</strong><span>English, Malayalam, Mandarin</span></div></div></div></div>
+    <div class="about-visual reveal"><div class="code-window"><div class="code-header"><div class="code-dots"><span class="dot" style="background:#8BAE9F;"></span><span style="background:#A7BDC7;"></span><span style="background:#C9D6CE;"></span></div><span class="code-title">gouri_ajith.py</span></div><pre class="code-body"><code><span class="code-keyword">class</span> <span class="code-keyword">GouriAjith</span>:
+  <span class="code-keyword">def</span> __init__(self):
+    self.role = <span class="code-string">"Embedded & IoT Dev"</span>
+    self.languages = [<span class="code-string">"Verilog"</span>,<span class="code-string">"Python"</span>,<span class="code-string">"C"</span>]
+    self.tools = [<span class="code-string">"Xilinx Vivado"</span>,<span class="code-string">"PlatformIO"</span>,<span class="code-string">"Cloudflare"</span>]
+  <span class="code-keyword">def</span> innovate(self):
+    <span class="code-keyword">return</span> <span class="code-string">"hardware + software synergy"</span></code></pre></div></div></div></div></section>
 
-    <span class="code-keyword">def</span> <span class="code-func">say_hello</span>(self):
-        <span class="code-keyword">print</span>(<span class="code-string">"Let's build something amazing!"</span>)</code></pre>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="section experience" id="experience"><div class="container"><div class="section-header"><span class="section-tag">&lt;experience&gt;</span><h2 class="section-title">Work <span class="gradient-text">Experience</span></h2><div class="section-line"></div></div>
+    <div class="timeline">
+      <div class="timeline-item reveal"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>Summer Intern - FPGA & Verilog</h3><span class="timeline-company">NIELIT, Kozhikode</span></div><span class="timeline-date">May 2025 – June 2025</span><ul class="timeline-details"><li>Designed 12+ digital logic circuits using Verilog for Basys 3 / Xilinx FPGAs, testbench validation.</li><li>Integrated multiple modules into working prototypes, timing analysis & hardware debugging.</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>Artificial Intelligence Intern</h3><span class="timeline-company">Corizo (Remote)</span></div><span class="timeline-date">Jan 2025 – Feb 2025</span><ul class="timeline-details"><li>Completed 4-week training: Python, data structures, supervised ML using Pandas/Scikit-learn.</li><li>Built predictive models and data preprocessing pipelines.</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>VLSI Design Intern</h3><span class="timeline-company">AD Infocom Systems (Remote)</span></div><span class="timeline-date">Mar 2026 – Apr 2026</span><ul class="timeline-details"><li>Developed Radix-4 Booth 16-bit sequential multiplier in Verilog; optimized DSP arithmetic.</li><li>Refactored legacy codebase, fixed syntax & timing, implemented 2’s complement and 'done' control flag.</li><li>Built testbench validating edge-case vectors (255×255, 128×128).</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>Student Representative - Maths Club</h3><span class="timeline-company">Saintgits College of Engg.</span></div><span class="timeline-date">Jan 2026 – Present</span><ul class="timeline-details"><li>Liaison between faculty and 100+ students, coordinate workshops and annual math festival.</li></ul></div></div>
+    </div></div></section>
 
-    <!-- Experience Section -->
-    <section class="section experience" id="experience">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">&lt;experience&gt;</span>
-                <h2 class="section-title">Work <span class="gradient-text">Experience</span></h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Summer Intern — FPGA & Verilog</h3>
-                            <span class="timeline-company">NIELIT, Kozhikode, Kerala</span>
-                        </div>
-                        <span class="timeline-date">May 2025 – June 2025</span>
-                        <ul class="timeline-details">
-                            <li>Designed and simulated digital logic circuits using <strong>Verilog</strong> for
-                                implementation on <strong>FPGA</strong> boards (Basys 3 and Xilinx).</li>
-                            <li>Prototyped digital systems, focusing on logic synthesis, timing analysis, and hardware
-                                debugging.</li>
-                            <li>Integrated multiple modules into a single working prototype, documenting the design
-                                process and test results.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Artificial Intelligence Intern</h3>
-                            <span class="timeline-company">Corizo, Online</span>
-                        </div>
-                        <span class="timeline-date">January 2025 – February 2025</span>
-                        <ul class="timeline-details">
-                            <li>Completed an intensive 4-week training in AI, focusing on <strong>Python</strong>, data
-                                structures, and foundational ML concepts.</li>
-                            <li>Applied theoretical knowledge to build practical projects using <strong>NumPy, Pandas,
-                                    and Scikit-learn</strong>.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Student Representative — Maths Club</h3>
-                            <span class="timeline-company">Saintgits College of Engineering</span>
-                        </div>
-                        <span class="timeline-date">January 2026 – Present</span>
-                        <ul class="timeline-details">
-                            <li>Liaison between mathematics faculty and 100+ students, coordinating club events and
-                                workshops.</li>
-                            <li>Collaborate with the club executive board to plan the annual college math festival.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="section projects" id="projects"><div class="container"><div class="section-header"><span class="section-tag">&lt;projects&gt;</span><h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2><div class="section-line"></div><p class="section-subtitle">FPGA, embedded systems, and cloud-connected prototypes</p></div>
+    <div class="projects-grid">
+      <article class="project-card featured reveal"><div class="project-image-placeholder sdg-gradient" style="background: #E1E9E1;"><svg width="90" viewBox="0 0 100 80" class="project-icon"><polygon points="50,10 65,35 85,40 68,58 72,78 50,68 28,78 32,58 15,40 35,35" fill="none" stroke="#8BAE9F" stroke-width="2"/></svg></div><div class="project-content"><div class="project-tags"><span class="tag tag-hardware">FPGA</span><span class="tag tag-hardware">Verilog</span><span class="tag tag-iot">ESP32</span><span class="tag tag-web">Cloudflare</span></div><h3 class="project-title">EcoMatrix – Hardware-Accelerated Environmental Monitor</h3><p class="project-desc">Nexys 4 FPGA + ESP32 with sub-millisecond alerts. Integrated “Region-Aware” climate thresholds (Tropical/Arid) via hardware toggles. Deployed full-stack dashboard using Cloudflare Workers to track UN SDG metrics (Clean Water & Air).</p><div class="project-features"><span>🔬 XADC Sensing</span><span>📊 Real-time Dashboard</span><span>🌡️ DHT11 + MQ-135</span><span>☁️ Cloud Integration</span></div></div></article>
+      <article class="project-card reveal"><div class="project-image-placeholder" style="background:#E5EAE2;"><svg width="70" viewBox="0 0 100 80" class="project-icon"><polygon points="50,20 65,40 85,45 68,60 72,78 50,65 28,78 32,60 15,45 35,40" fill="none" stroke="#8BAE9F"/></svg></div><div class="project-content"><div class="project-tags"><span class="tag tag-hardware">FPGA</span><span class="tag tag-iot">IoT</span></div><h3 class="project-title">VISAI National Competition</h3><p class="project-desc">End-to-end hardware-software solution integrating FPGA data processing + IoT connectivity for real-time environmental monitoring. National level innovation entry.</p><div class="project-features"><span>🏆 National Level</span><span>🔗 Hardware-Software</span></div></div></article>
+      <article class="project-card reveal"><div class="project-image-placeholder" style="background:#E8EDE4;"><svg width="70" viewBox="0 0 100 80" class="project-icon"><polyline points="15,40 35,40 35,25 60,25 60,40 80,40 80,25 90,25" fill="none" stroke="#8BAE9F"/></svg></div><div class="project-content"><div class="project-tags"><span class="tag tag-hardware">IC 7474</span><span class="tag tag-hardware">PCB</span></div><h3 class="project-title">Frequency Divider Circuit</h3><p class="project-desc">Designed PCB using IC 7474 D flip-flops to divide clock frequency by 4. Verified timing diagrams, sequential logic behavior with LED indicators.</p><div class="project-features"><span>⚡ Sequential Logic</span><span>📊 Timing Analysis</span></div></div></article>
+    </div></div></section>
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">&lt;projects&gt;</span>
-                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
-                <div class="section-line"></div>
-                <p class="section-subtitle">Hands-on projects spanning hardware design, embedded systems, and IoT</p>
-            </div>
-            <div class="projects-grid">
+  <section class="section skills" id="skills"><div class="container"><div class="section-header"><span class="section-tag">&lt;skills&gt;</span><h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2><div class="section-line"></div></div>
+    <div class="skills-grid"><div class="skill-category reveal"><div class="skill-category-header">⚡<h3>Hardware & FPGA</h3></div><div class="skill-items"><div class="skill-item">Verilog HDL</div><div class="skill-item">Xilinx Vivado</div><div class="skill-item">FPGA (Nexys4/Basys3)</div><div class="skill-item">XADC / UART</div></div></div>
+    <div class="skill-category reveal"><div class="skill-category-header">📡<h3>Embedded & IoT</h3></div><div class="skill-items"><div class="skill-item">ESP32 / PlatformIO</div><div class="skill-item">Sensor Integration</div><div class="skill-item">WiFi/HTTP</div><div class="skill-item">Arduino / Keil</div></div></div>
+    <div class="skill-category reveal"><div class="skill-category-header">🌐<h3>Web & Cloud</h3></div><div class="skill-items"><div class="skill-item">HTML/CSS</div><div class="skill-item">Cloudflare Workers</div><div class="skill-item">JavaScript</div></div></div>
+    <div class="skill-category reveal"><div class="skill-category-header">🛠️<h3>Tools</h3></div><div class="skill-items"><div class="skill-item">Git/GitHub</div><div class="skill-item">VS Code / Colab</div><div class="skill-item">Excel / Canva</div></div></div></div></div></section>
 
-                <!-- Project 1: SDG FPGA Monitor -->
-                <article class="project-card featured reveal" id="project-sdg">
-                    <div class="project-image">
-                        <div class="project-image-placeholder sdg-gradient">
-                            <svg viewBox="0 0 100 80" class="project-icon">
-                                <rect x="10" y="5" width="80" height="50" rx="4" fill="none" stroke="currentColor"
-                                    stroke-width="2" />
-                                <polyline points="20,40 35,25 50,35 65,15 80,30" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                <circle cx="20" cy="40" r="2.5" fill="currentColor" />
-                                <circle cx="35" cy="25" r="2.5" fill="currentColor" />
-                                <circle cx="50" cy="35" r="2.5" fill="currentColor" />
-                                <circle cx="65" cy="15" r="2.5" fill="currentColor" />
-                                <circle cx="80" cy="30" r="2.5" fill="currentColor" />
-                                <line x1="30" y1="65" x2="70" y2="65" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" />
-                                <line x1="50" y1="55" x2="50" y2="65" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                        </div>
-                        <div class="project-overlay">
-                            <a href="https://github.com/GouriAjith-0503/sdg-fpga-monitor" target="_blank"
-                                class="project-link-btn">
-                                View on GitHub →
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="tag tag-hardware">FPGA</span>
-                            <span class="tag tag-hardware">Verilog</span>
-                            <span class="tag tag-iot">ESP32</span>
-                            <span class="tag tag-iot">IoT</span>
-                            <span class="tag tag-web">Cloudflare Workers</span>
-                        </div>
-                        <h3 class="project-title">EcoMatrix – Hardware-Accelerated Environmental Monitor</h3>
-                        <p class="project-desc">
-                            Built an environmental monitor using a <strong>Nexys 4 FPGA</strong> and
-                            <strong>ESP32</strong>, achieving sub-millisecond response times for safety alerts via
-                            parallel Verilog logic. Integrated a "Region-Aware" feature allowing adaptation to global
-                            climate zones (Tropical/Arid) via hardware toggles. Deployed a full-stack cloud solution
-                            using <strong>Cloudflare Workers</strong> and <strong>HTML/CSS</strong> to track UN
-                            Sustainable
-                            Development Goal metrics (Clean Water & Air).
-                        </p>
-                        <div class="project-features">
-                            <span>🔬 XADC Analog Sensing</span>
-                            <span>📊 Real-time Dashboard</span>
-                            <span>🌡️ DHT11 Temperature/Humidity</span>
-                            <span>☁️ Cloud Integration</span>
-                        </div>
-                        <a href="https://github.com/GouriAjith-0503/sdg-fpga-monitor" target="_blank"
-                            class="project-github">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                            <span>Source Code</span>
-                        </a>
-                    </div>
-                </article>
+  <section class="section contact" id="contact"><div class="container"><div class="section-header"><span class="section-tag">&lt;contact&gt;</span><h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2><div class="section-line"></div><p class="section-subtitle">collaborations, opportunities, or just a chat</p></div>
+    <div class="contact-grid"><a href="mailto:ajithgouriajith@gmail.com" class="contact-card reveal"><div class="contact-icon">✉️</div><h3>Email</h3><p>ajithgouriajith@gmail.com</p><span>→</span></a>
+    <a href="https://github.com/GouriAjith-0503" target="_blank" class="contact-card reveal"><div class="contact-icon">🐙</div><h3>GitHub</h3><p>GouriAjith-0503</p><span>→</span></a>
+    <a href="https://www.linkedin.com/in/gouri-ajith-64854a331" target="_blank" class="contact-card reveal"><div class="contact-icon">🔗</div><h3>LinkedIn</h3><p>Connect with me</p><span>→</span></a></div></div></section>
+  <footer><div class="container"><div class="footer-content"><span class="footer-logo" style="font-family: monospace;">&lt;GA/&gt;</span><p>Designed & built by Gouri Ajith — calm & intentional</p><p class="footer-year">© 2026</p></div></div></footer>
 
-                <!-- Project 2: VISAI Competition -->
-                <article class="project-card reveal" id="project-visai">
-                    <div class="project-image">
-                        <div class="project-image-placeholder visai-gradient">
-                            <svg viewBox="0 0 100 80" class="project-icon">
-                                <polygon points="50,5 60,30 85,30 65,48 72,73 50,58 28,73 35,48 15,30 40,30" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="tag tag-hardware">FPGA</span>
-                            <span class="tag tag-iot">ESP32</span>
-                            <span class="tag tag-competition">Competition</span>
-                        </div>
-                        <h3 class="project-title">VISAI National Competition</h3>
-                        <p class="project-desc">
-                            End-to-end hardware-software solution developed for the VISAI national competition.
-                            Demonstrated integration of FPGA-based data processing with IoT connectivity and real-time
-                            monitoring capabilities.
-                        </p>
-                        <div class="project-features">
-                            <span>🏆 National Level</span>
-                            <span>🔗 Hardware-Software Integration</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 3: Frequency Divider -->
-                <article class="project-card reveal" id="project-freqdiv">
-                    <div class="project-image">
-                        <div class="project-image-placeholder freqdiv-gradient">
-                            <svg viewBox="0 0 100 80" class="project-icon">
-                                <polyline
-                                    points="10,40 20,40 20,20 35,20 35,40 50,40 50,20 65,20 65,40 80,40 80,20 90,20"
-                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <polyline points="10,60 30,60 30,45 70,45 70,60 90,60" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="tag tag-hardware">IC 7474</span>
-                            <span class="tag tag-hardware">PCB Design</span>
-                            <span class="tag tag-hardware">Digital Logic</span>
-                        </div>
-                        <h3 class="project-title">Frequency Divider Circuit</h3>
-                        <p class="project-desc">
-                            Designed and implemented a frequency divider circuit on a PCB board using <strong>IC
-                                7474</strong> to reduce input clock frequency by a factor of 4. Analyzed circuit timing
-                            diagrams and used LEDs to verify output waveforms against theoretical calculations.
-                        </p>
-                        <div class="project-features">
-                            <span>� Sequential Logic</span>
-                            <span>� Flip-Flop Behavior</span>
-                            <span>📊 Timing Analysis</span>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section skills" id="skills">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">&lt;skills&gt;</span>
-                <h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">⚡</div>
-                        <h3>Hardware & FPGA</h3>
-                    </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><span class="skill-dot hardware"></span>Verilog HDL</div>
-                        <div class="skill-item"><span class="skill-dot hardware"></span>Xilinx Vivado</div>
-                        <div class="skill-item"><span class="skill-dot hardware"></span>FPGA Design</div>
-                        <div class="skill-item"><span class="skill-dot hardware"></span>XADC / ADC</div>
-                        <div class="skill-item"><span class="skill-dot hardware"></span>UART Protocol</div>
-                        <div class="skill-item"><span class="skill-dot hardware"></span>Digital Logic</div>
-                    </div>
-                </div>
-                <div class="skill-category reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">📡</div>
-                        <h3>Embedded & IoT</h3>
-                    </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><span class="skill-dot iot"></span>ESP32</div>
-                        <div class="skill-item"><span class="skill-dot iot"></span>Python</div>
-                        <div class="skill-item"><span class="skill-dot iot"></span>PlatformIO</div>
-                        <div class="skill-item"><span class="skill-dot iot"></span>Sensor Integration</div>
-                        <div class="skill-item"><span class="skill-dot iot"></span>WiFi / HTTP</div>
-                        <div class="skill-item"><span class="skill-dot iot"></span>Arduino</div>
-                    </div>
-                </div>
-                <div class="skill-category reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">🌐</div>
-                        <h3>Web Development</h3>
-                    </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><span class="skill-dot web"></span>HTML / CSS</div>
-                        <div class="skill-item"><span class="skill-dot web"></span>Cloudflare Workers</div>
-                    </div>
-                </div>
-                <div class="skill-category reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">🛠️</div>
-                        <h3>Tools & Platforms</h3>
-                    </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><span class="skill-dot tools"></span>Git & GitHub</div>
-                        <div class="skill-item"><span class="skill-dot tools"></span>VS Code</div>
-                        <div class="skill-item"><span class="skill-dot tools"></span>Microsoft Excel</div>
-                        <div class="skill-item"><span class="skill-dot tools"></span>Google Colab</div>
-                        <div class="skill-item"><span class="skill-dot tools"></span>Canva</div>
-                        <div class="skill-item"><span class="skill-dot tools"></span>Keil µVision</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">&lt;contact&gt;</span>
-                <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
-                <div class="section-line"></div>
-                <p class="section-subtitle">I'm always open to new opportunities and collaborations</p>
-            </div>
-            <div class="contact-grid">
-                <a href="mailto:ajithgouriajith@gmail.com" class="contact-card reveal" id="contact-email">
-                    <div class="contact-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="4" width="20" height="16" rx="2" />
-                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                        </svg>
-                    </div>
-                    <h3>Email</h3>
-                    <p>ajithgouriajith@gmail.com</p>
-                    <span class="contact-arrow">→</span>
-                </a>
-                <a href="https://github.com/GouriAjith-0503" target="_blank" class="contact-card reveal"
-                    id="contact-github">
-                    <div class="contact-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                    </div>
-                    <h3>GitHub</h3>
-                    <p>GouriAjith-0503</p>
-                    <span class="contact-arrow">→</span>
-                </a>
-                <a href="https://www.linkedin.com/in/gouri-ajith-64854a331" target="_blank" class="contact-card reveal"
-                    id="contact-linkedin">
-                    <div class="contact-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
-                    </div>
-                    <h3>LinkedIn</h3>
-                    <p>Connect with me</p>
-                    <span class="contact-arrow">→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <span class="footer-logo">
-                    <span class="logo-bracket">&lt;</span>GA<span class="logo-bracket">/&gt;</span>
-                </span>
-                <p>Designed & Built by Gouri Ajith</p>
-                <p class="footer-year">© 2026. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+  <script>
+    (function(){const n=document.getElementById('navbar'),toggle=document.getElementById('nav-toggle'),navLinks=document.getElementById('nav-links');window.addEventListener('scroll',()=>{window.scrollY>50?n.classList.add('scrolled'):n.classList.remove('scrolled')});if(toggle&&navLinks){toggle.addEventListener('click',()=>{toggle.classList.toggle('active');navLinks.classList.toggle('open')});document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',()=>{navLinks.classList.remove('open');toggle.classList.remove('active')}))}
+    const typeEl=document.getElementById('typewriter');if(typeEl){const phrases=['FPGA-based systems.','IoT solutions.','embedded firmware.','real-time dashboards.'];let i=0,ch=0,del=false;function type(){const cur=phrases[i];if(del){typeEl.textContent=cur.substring(0,ch-1);ch--;}else{typeEl.textContent=cur.substring(0,ch+1);ch++;}if(!del&&ch===cur.length){del=true;setTimeout(type,1800);return;}else if(del&&ch===0){del=false;i=(i+1)%phrases.length;setTimeout(type,300);return;}setTimeout(type,del?40:80);}setTimeout(type,300);}
+    const counters=document.querySelectorAll('.stat-number');let animated=false;const observer=new IntersectionObserver((entries)=>{if(animated)return;entries.forEach(entry=>{if(entry.isIntersecting&&!animated){animated=true;counters.forEach(c=>{const t=parseInt(c.getAttribute('data-count'),10);if(isNaN(t))return;let current=0;const step=Math.ceil(t/40);const update=()=>{current+=step;if(current>=t){c.innerText=t;return}c.innerText=current;requestAnimationFrame(update)};update()})}})},{threshold:0.5});const statsDiv=document.querySelector('.hero-stats');if(statsDiv)observer.observe(statsDiv);
+    const revealElements=document.querySelectorAll('.reveal');const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');revealObserver.unobserve(entry.target)}})},{threshold:0.1});revealElements.forEach(el=>revealObserver.observe(el));
+    // particles calm
+    const canvas=document.getElementById('particles-canvas');if(canvas){let ctx=canvas.getContext('2d'),w,h,parts=[],anim=true;function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}function initParts(){const num=Math.min(45,Math.floor((w*h)/25000));parts=[];for(let i=0;i<num;i++){parts.push({x:Math.random()*w,y:Math.random()*h,rad:Math.random()*2+1.2,dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.3,opacity:Math.random()*0.4+0.1,col:`rgba(139,174,159,${Math.random()*0.3+0.1})`})}}function draw(){if(!anim)return;ctx.clearRect(0,0,w,h);for(let p of parts){p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>w)p.dx*=-1;if(p.y<0||p.y>h)p.dy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.rad,0,Math.PI*2);ctx.fillStyle=p.col;ctx.fill();}requestAnimationFrame(draw);}window.addEventListener('resize',()=>{resize();initParts();});resize();initParts();draw();}
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){const hash=this.getAttribute('href');if(hash==='#')return;const target=document.querySelector(hash);if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});if(navLinks)navLinks.classList.remove('open');if(toggle)toggle.classList.remove('active');}})});
+    const resumeBtn=document.getElementById('resumeDummy');if(resumeBtn)resumeBtn.addEventListener('click',(e)=>{e.preventDefault();alert('📄 Resume download: Gouri Ajith — full portfolio details available upon request or contact directly.')});
+    })();
+  </script>
 </body>
-
 </html>
+```
